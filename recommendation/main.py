@@ -10,7 +10,7 @@ def friends_of_friends(graph, user):
     user_friends = friends(graph, user)
     user_friends_of_friends = set()
 
-    for friend in user_friends_of_friends:
+    for friend in user_friends:
         user_friends_of_friends.update(friends(graph, friend) - user_friends)
 
     return user_friends_of_friends - {user}
@@ -86,4 +86,4 @@ def recommend_by_influence(graph, user):
     who are not yet a friend of the given user.
     The order of the list is determined by the influence measurement.
     """
-  return number_map_to_sorted_list(influence_map(graph, user))
+    return number_map_to_sorted_list(influence_map(graph, user))
