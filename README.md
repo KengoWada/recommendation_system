@@ -1,5 +1,7 @@
 # Recommendation System
 
+[![Build Status](https://travis-ci.org/KengoWada/recommendation_system.svg?branch=master)](https://travis-ci.org/KengoWada/recommendation_system) [![Coverage Status](https://coveralls.io/repos/github/KengoWada/recommendation_system/badge.svg)](https://coveralls.io/github/KengoWada/recommendation_system) [![Maintainability](https://api.codeclimate.com/v1/badges/c786cd4b6b90ee0c88be/maintainability)](https://codeclimate.com/github/KengoWada/recommendation_system/maintainability)
+
 A lot of apps we use today recommend various things to us such as Netflix recommending movies, Facebook recommending friends and many others. In this project I look at potential ways I could do this myself.
 
 This project is inspired by the [University of Washington Computer Science Assignment](https://courses.cs.washington.edu/courses/cse140/13wi/homework/hw4/homework4.html)
