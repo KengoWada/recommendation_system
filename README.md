@@ -43,4 +43,4 @@ Since X is highly selective in terms of friendship, and is a friend of yours, yo
 Incorporate the above idea into your friend recommendation algorithm. Here is the concrete way that you will do so. We call the technique “influence scoring”.
 Suppose that user1 and user2 have three friends in common: f1, f2, and f3. The score for user2 as a friend of user1 is 1/numfriends(f1) + 1/numfriends(f2) + 1/numfriends(f3), where numfriends(f) is the number of friends that f has. In other words, each friend F of user1 has a total influence score of 1 to contribute, and divides it equally among all of F's friends.
 
-**Note:** Look at **main.py** for the implementation of the functions for this.
+<!-- **Note:** Look at **main.py** for the implementation of the functions for this. -->
