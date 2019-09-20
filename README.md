@@ -1,6 +1,6 @@
 # Recommendation System
 
-[![Build Status](https://travis-ci.org/KengoWada/recommendation_system.svg?branch=master)](https://travis-ci.org/KengoWada/recommendation_system) [![Coverage Status](https://coveralls.io/repos/github/KengoWada/recommendation_system/badge.svg)](https://coveralls.io/github/KengoWada/recommendation_system) [![Maintainability](https://api.codeclimate.com/v1/badges/c786cd4b6b90ee0c88be/maintainability)](https://codeclimate.com/github/KengoWada/recommendation_system/maintainability)
+[![Build Status](https://travis-ci.org/KengoWada/recommendation_system.svg?branch=master)](https://travis-ci.org/KengoWada/recommendation_system) [![Coverage Status](https://coveralls.io/repos/github/KengoWada/recommendation_system/badge.svg?branch=master)](https://coveralls.io/github/KengoWada/recommendation_system?branch=master) [![Maintainability](https://api.codeclimate.com/v1/badges/c786cd4b6b90ee0c88be/maintainability)](https://codeclimate.com/github/KengoWada/recommendation_system/maintainability)
 
 A lot of apps we use today recommend various things to us such as Netflix recommending movies, Facebook recommending friends and many others. In this project I look at potential ways I could do this myself.
 
