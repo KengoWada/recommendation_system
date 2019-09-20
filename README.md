@@ -55,10 +55,34 @@ Here we shall analyse whether the recommendation algorithm matters. We are going
 
 **Note:** Look at the **rj.py** for this implementation
 
-### Results
-
-After running both recommendation algorithms against the same use and comparing results I have to the conclusion that the algorithm matters.
+**Results:** After running both recommendation algorithms against the same user and comparing results I have come to the conclusion that the algorithm matters.
 
 - Algorithms returning same results: 5
 
 - Algorithms returning different results: 6
+
+## Which Algorithm is Better
+
+Now that we have come to the conclusion that the algorithm matters, we need to know which algorithm is better
+
+### How Test the Algorithms
+
+- Randomly choose a real connection. Lets say the 2 friends are F1 and F2
+
+- Remove their friendship from the graph
+
+- Compute the friend recommendations for F1 and F2
+
+- Determine the rank of F1 in F2s list of recommended friends and do the same for F2 in F1s list
+
+  - If either does not exist (F2 is not recommended as a friend to F1), discard the pair from the experiment
+
+  - Otherwise average the two numbers
+
+  - The rank also known as index or position. It starts from **1** not 0
+
+- Don't forget to put their friendship back in the graph
+
+- Run the above test 100 times
+
+**Results:** From the results obtained from the above test it can be seen that the Influence method provides better friend recommendations than the Common friends recommendation algorithm.
