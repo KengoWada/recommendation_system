@@ -1,0 +1,14 @@
+Same
+Different
+Different
+Different
+Same
+Different
+Same
+Different
+Same
+Same
+Different
+
+Same: 5
+Different: 6
