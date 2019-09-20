@@ -10,3 +10,4 @@ omit =
     validation/*
     tests/*
     */__init__.py
+    rj.py
