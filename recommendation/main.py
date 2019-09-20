@@ -34,7 +34,7 @@ def number_of_common_friends_map(graph, user):
     number_of_common_friends_map(G, "A")  =>   { 'B':2, 'C':1 }
     """
     common_friends_map = {}
-    user_friends = friends(graph, user)
+    user_friends = friends_of_friends(graph, user)
 
     for friend in user_friends:
         length = len(common_friends(graph, user, friend))
