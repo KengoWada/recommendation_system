@@ -6,5 +6,5 @@ from test_base import graph
 class TestCommonFriendRecommendation(unittest.TestCase):
     def test_common_friend_recommendation(self):
         """Test common friend recommendation"""
-        self.assertEqual(rcf(graph, "A"), [])
-        self.assertEqual(rcf(graph, "E"), ["C", "D"])
+        self.assertEqual(rcf(graph, "A"), ["C", "E"])
+        self.assertEqual(rcf(graph, "E"), ["A", "B"])
