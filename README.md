@@ -46,3 +46,19 @@ Since X is highly selective in terms of friendship, and is a friend of yours, yo
 
 Incorporate the above idea into your friend recommendation algorithm. Here is the concrete way that you will do so. We call the technique “influence scoring”.
 Suppose that user1 and user2 have three friends in common: f1, f2, and f3. The score for user2 as a friend of user1 is 1/numfriends(f1) + 1/numfriends(f2) + 1/numfriends(f3), where numfriends(f) is the number of friends that f has. In other words, each friend F of user1 has a total influence score of 1 to contribute, and divides it equally among all of F's friends.
+
+## Does the Algorithm Matter
+
+Here we shall analyse whether the recommendation algorithm matters. We are going to create a graph from the Romeo and Juliet story and try out the different algorithms and see if the results differ.
+
+![Romeo and Juliet](https://courses.cs.washington.edu/courses/cse140/13wi/homework/hw4/romeo-and-juliet-undirected.png)
+
+**Note:** Look at the **rj.py** for this implementation
+
+### Results
+
+After running both recommendation algorithms against the same use and comparing results I have to the conclusion that the algorithm matters.
+
+- Algorithms returning same results: 5
+
+- Algorithms returning different results: 6
