@@ -41,21 +41,32 @@ f.write("Different: " + str(different) + "\n")
 f.close()
 
 
+def return_average(user1, user2, list1, list2):
+    if user1 in list2 and user1 in list1:
+        user1_rank = list2.index(user1) + 1
+        user2_rank = list1.index(user2) + 1
+        average = (user1_rank + user2_rank) / 2
+        return {"is_valid": True, "Average": average}
+    else:
+        return {"is_valid": False}
+
+
 def compare_algorithms(graph, edges):
     # Select a random relationship and remove it from the graph
     edge = random.choice(edges)
-    graph.remove_edge(edge[0], edge[1])
     user1 = edge[0]
     user2 = edge[1]
+    graph.remove_edge(user1, user2)
 
     # Recommendation by common friends
     user1_common_recommendations = rcf(graph, user1)
     user2_common_recommendations = rcf(graph, user2)
 
-    if user1 in user2_common_recommendations and user2 in user1_common_recommendations:
-        user1_common_rank = user2_common_recommendations.index(user1) + 1
-        user2_common_rank = user1_common_recommendations.index(user2) + 1
-        common_average = (user1_common_rank + user2_common_rank) / 2
+    results = return_average(
+        user1, user2, user1_common_recommendations, user2_common_recommendations)
+
+    if results["is_valid"]:
+        common_average = results["average"]
     else:
         graph.add_edge(user1, user2)
         return 0
@@ -64,10 +75,11 @@ def compare_algorithms(graph, edges):
     user1_influence_recommendations = rif(graph, user1)
     user2_influence_recommendations = rif(graph, user2)
 
-    if user1 in user2_influence_recommendations and user2 in user1_influence_recommendations:
-        user1_influence_rank = user2_influence_recommendations.index(user1) + 1
-        user2_influence_rank = user1_influence_recommendations.index(user2) + 1
-        influence_average = (user1_influence_rank + user2_influence_rank) / 2
+    results = return_average(
+        user1, user2, user1_influence_recommendations, user2_influence_recommendations)
+
+    if results["is_valid"]:
+        influence_average = results["average"]
     else:
         graph.add_edge(user1, user2)
         return 0
