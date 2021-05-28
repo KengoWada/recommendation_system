@@ -1,6 +1,8 @@
 import unittest
+
 from recommendation.main import number_map_to_sorted_list
-from test_base import graph
+
+from .test_base import graph
 
 
 class TestSortMapToList(unittest.TestCase):

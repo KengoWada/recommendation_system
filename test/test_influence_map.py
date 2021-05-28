@@ -1,6 +1,8 @@
 import unittest
+
 from recommendation.main import influence_map
-from test_base import graph
+
+from .test_base import graph
 
 
 class TestInfluenceMap(unittest.TestCase):

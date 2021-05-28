@@ -1,6 +1,8 @@
 import unittest
+
 from recommendation.main import recommend_by_number_of_common_friends as rcf
-from test_base import graph
+
+from .test_base import graph
 
 
 class TestCommonFriendRecommendation(unittest.TestCase):

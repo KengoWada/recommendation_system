@@ -1,6 +1,8 @@
 import unittest
+
 from recommendation.main import recommend_by_influence
-from test_base import graph
+
+from .test_base import graph
 
 
 class TestInfluenceRecommendation(unittest.TestCase):

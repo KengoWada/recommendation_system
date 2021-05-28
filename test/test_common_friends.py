@@ -1,6 +1,8 @@
 import unittest
+
 from recommendation.main import common_friends
-from test_base import graph
+
+from .test_base import graph
 
 
 class TestCommonFriends(unittest.TestCase):

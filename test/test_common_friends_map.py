@@ -1,6 +1,8 @@
 import unittest
+
 from recommendation.main import number_of_common_friends_map
-from test_base import graph
+
+from .test_base import graph
 
 
 class TestCommonFriendsMap(unittest.TestCase):
