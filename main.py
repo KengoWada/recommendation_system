@@ -2,8 +2,8 @@ import random
 
 import networkx as nx
 
-from recommendation.main import recommend_by_influence as rif
-from recommendation.main import recommend_by_number_of_common_friends as rcf
+from recommendation import recommend_by_influence as rif
+from recommendation import recommend_by_number_of_common_friends as rcf
 
 characters = ["Nurse", "Juliet", "Capulet", "Tybalt", "Friar Laurence",
               "Romeo", "Benvolio", "Montague", "Escalus", "Mercutio", "Paris"]
