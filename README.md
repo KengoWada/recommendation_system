@@ -6,6 +6,16 @@ A lot of apps we use today recommend various things to us such as Netflix recomm
 
 This project is inspired by the [University of Washington Computer Science Assignment](https://courses.cs.washington.edu/courses/cse140/13wi/homework/hw4/homework4.html)
 
+## Getting Started
+
+- Create a virtual environment `python3 -m venv venv`
+
+- Install all dependencies `pip install -r requirements.txt`
+
+- To run all tests `python -m pytest --cov`
+
+- To generate results `python main.py`
+
 ## Background
 
 The actual algorithms used by big tech companies are well guarded secrets, but generally there are two approaches: collaborative filtering and content-based filtering.
