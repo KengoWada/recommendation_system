@@ -1,1 +1,1 @@
-from .main import recommend_by_influence, recommend_by_number_of_common_friends
+from .main import *
