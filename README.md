@@ -53,7 +53,7 @@ Here we shall analyse whether the recommendation algorithm matters. We are going
 
 ![Romeo and Juliet](https://courses.cs.washington.edu/courses/cse140/13wi/homework/hw4/romeo-and-juliet-undirected.png)
 
-**Note:** Look at the **rj.py** for this implementation
+**Note:** Look at the **main.py** for this implementation
 
 **Results:** After running both recommendation algorithms against the same user and comparing results I have come to the conclusion that the algorithm matters.
 
