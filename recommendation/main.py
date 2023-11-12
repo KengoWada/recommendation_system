@@ -75,7 +75,8 @@ def influence_map(graph, user):
         user_common_friends = common_friends(graph, user, friend)
         if len(user_common_friends) >= 1:
             friend_influence_map[friend] = sum(
-                [1/len(friends(graph, val)) for val in user_common_friends])
+                [1 / len(friends(graph, val)) for val in user_common_friends]
+            )
 
     return friend_influence_map
 
