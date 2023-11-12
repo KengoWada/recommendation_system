@@ -8,13 +8,33 @@ This project is inspired by the [University of Washington Computer Science Assig
 
 ## Getting Started
 
-- Create a virtual environment `python3 -m venv venv`
+- Clone repo
 
-- Install all dependencies `pip install -r requirements.txt`
+- Create a virtual environment and activate it
 
-- To run all tests `python -m pytest --cov`
+```sh
+python3.10 -m venv venv
+source venv/bin/activate
+```
 
-- To generate results `python main.py`
+- Install all dependencies
+
+```sh
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+- To run all tests
+
+```sh
+python -m pytest --cov
+```
+
+- To generate results
+
+```sh
+python main.py
+```
 
 ## Background
 
@@ -32,7 +52,7 @@ One common use for a graph is to represent travel possibilities, such as on a ro
 
 ### Representing Graphs in Python
 
-The [NetworkX](https://networkx.github.io/) library is used to represent graphs in python. Work through the [tutorial](https://networkx.github.io/documentation/stable/tutorial.html) up to and including [Accessing edges and neighbours](https://networkx.github.io/documentation/stable/tutorial.html#accessing-edges-and-neighbors)
+The [NetworkX](https://networkx.org/) library is used to represent graphs in python. Work through the [tutorial](https://networkx.org/documentation/stable/tutorial.html) up to and including [Accessing edges and neighbours](https://networkx.org/documentation/stable/tutorial.html#accessing-edges-and-neighbors)
 
 **Note:** Look at the **intro** directory for sample **networkx** code
 
