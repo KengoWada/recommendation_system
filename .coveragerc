@@ -1,4 +1,5 @@
-[report]
+[run]
+source = .
 omit =
     */python?.?/*
     */site-packages/nose/*
@@ -6,7 +7,6 @@ omit =
     *.pyc
     */venv/*
     */home/travis/virtualenv/*
-    Database/*
-    validation/*
     tests/*
     */__init__.py
+    main.py
