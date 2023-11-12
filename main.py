@@ -5,130 +5,176 @@ import networkx as nx
 from recommendation import recommend_by_influence as rif
 from recommendation import recommend_by_number_of_common_friends as rcf
 
-characters = ["Nurse", "Juliet", "Capulet", "Tybalt", "Friar Laurence",
-              "Romeo", "Benvolio", "Montague", "Escalus", "Mercutio", "Paris"]
+CHARACTERS = [
+    "Nurse",
+    "Juliet",
+    "Capulet",
+    "Tybalt",
+    "Friar Laurence",
+    "Romeo",
+    "Benvolio",
+    "Montague",
+    "Escalus",
+    "Mercutio",
+    "Paris",
+]
 
-relationships = [("Nurse", "Juliet"), ("Juliet", "Tybalt"), ("Juliet", "Friar Laurence"),
-                 ("Juliet", "Romeo"), ("Juliet", "Capulet"), ("Capulet", "Tybalt"),
-                 ("Capulet", "Escalus"), ("Capulet",
-                                          "Paris"), ("Romeo", "Friar Laurence"),
-                 ("Romeo", "Benvolio"), ("Romeo",
-                                         "Montague"), ("Romeo", "Mercutio"),
-                 ("Benvolio", "Montague"), ("Montague",
-                                            "Escalus"), ("Escalus", "Mercutio"),
-                 ("Escalus", "Paris"), ("Mercutio", "Paris")]
+RELATIONSHIPS = [
+    ("Nurse", "Juliet"),
+    ("Juliet", "Tybalt"),
+    ("Juliet", "Friar Laurence"),
+    ("Juliet", "Romeo"),
+    ("Juliet", "Capulet"),
+    ("Capulet", "Tybalt"),
+    ("Capulet", "Escalus"),
+    ("Capulet", "Paris"),
+    ("Romeo", "Friar Laurence"),
+    ("Romeo", "Benvolio"),
+    ("Romeo", "Montague"),
+    ("Romeo", "Mercutio"),
+    ("Benvolio", "Montague"),
+    ("Montague", "Escalus"),
+    ("Escalus", "Mercutio"),
+    ("Escalus", "Paris"),
+    ("Mercutio", "Paris"),
+]
 
-rj = nx.Graph()
-
-rj.add_nodes_from(characters)
-rj.add_edges_from(relationships)
-
-same = 0
-different = 0
-
-f = open("results/rj_algorithm_diff.txt", "w")
-
-for character in characters:
-    if rcf(rj, character) == rif(rj, character):
-        same += 1
-        f.write("Same\n")
-    else:
-        different += 1
-        f.write("Different\n")
-
-f.write("\n")
-f.write("Same: " + str(same) + "\n")
-f.write("Different: " + str(different) + "\n")
-
-f.close()
+ALGORITHMS = ["recommend_by_number_of_common_friends", "recommend_by_influence"]
 
 
-def return_average(user1, user2, list1, list2):
-    if user1 in list2 and user2 in list1:
-        user1_rank = list2.index(user1) + 1
-        user2_rank = list1.index(user2) + 1
-        average = (user1_rank + user2_rank) / 2
-        return {"is_valid": True, "average": average}
-    else:
-        return {"is_valid": False}
+def algorithm_difference(graph, nodes, results_filename):
+    """Identify if the algorithm results are different."""
+    same = 0
+    different = 0
+
+    with open(results_filename, "w") as file:
+        for node in nodes:
+            if rcf(graph, node) == rif(graph, node):
+                same += 1
+                file.write("Same\n")
+            else:
+                different += 1
+                file.write("Different\n")
+
+        file.write("\n")
+        file.write(f"Same: {same}\n")
+        file.write(f"Different: {different}\n")
+
+
+def average_ranking(user1, user2, user1_recommendations, user2_recommendations):
+    """Return the average ranking of two users from their recommendations."""
+
+    if user1 in user2_recommendations and user2 in user1_recommendations:
+        user1_rank = user2_recommendations.index(user1) + 1
+        user2_rank = user1_recommendations.index(user2) + 1
+        return (user1_rank + user2_rank) / 2
+
+    return None
+
+
+def get_user_recommendations(graph, user, algorithm):
+    """Return user recommendations based on algorithm."""
+
+    if algorithm == ALGORITHMS[0]:
+        return rcf(graph, user)
+
+    return rif(graph, user)
+
+
+def algorithms_average(graph, user1, user2):
+    """Return recommendation algorithm average scores."""
+
+    common_average = 0
+    influence_average = 0
+    for algorithm in ALGORITHMS:
+        user1_recommendations = get_user_recommendations(graph, user1, algorithm)
+        user2_recommendations = get_user_recommendations(graph, user2, algorithm)
+
+        average = average_ranking(
+            user1, user2, user1_recommendations, user2_recommendations
+        )
+        if average is None:
+            return None
+
+        if algorithm == ALGORITHMS[0]:
+            common_average = average
+        else:
+            influence_average = average
+
+    return {ALGORITHMS[0]: common_average, ALGORITHMS[1]: influence_average}
 
 
 def compare_algorithms(graph, edges):
-    # Select a random relationship and remove it from the graph
+    """Compare algorithms and return the better one with average performace for each."""
+
     edge = random.choice(edges)
     user1 = edge[0]
     user2 = edge[1]
     graph.remove_edge(user1, user2)
 
-    # Recommendation by common friends
-    user1_common_recommendations = rcf(graph, user1)
-    user2_common_recommendations = rcf(graph, user2)
-
-    results = return_average(
-        user1, user2, user1_common_recommendations, user2_common_recommendations)
-
-    if results["is_valid"]:
-        common_average = results["average"]
-    else:
-        graph.add_edge(user1, user2)
-        return 0
-
-    # Recommendation by influence
-    user1_influence_recommendations = rif(graph, user1)
-    user2_influence_recommendations = rif(graph, user2)
-
-    results = return_average(
-        user1, user2, user1_influence_recommendations, user2_influence_recommendations)
-
-    if results["is_valid"]:
-        influence_average = results["average"]
-    else:
-        graph.add_edge(user1, user2)
-        return 0
-
-    # Add the relationship back to the graph
+    average_results = algorithms_average(graph, user1, user2)
     graph.add_edge(user1, user2)
 
-    # Compare results
-    better = ""
+    better_algorithm = None
+    if not average_results:
+        return better_algorithm
 
-    algorithm_analysis.write(
-        "Average rank influence algorithm: " + str(influence_average) + "\n")
-    algorithm_analysis.write(
-        "Average rank common friends algorithm: " + str(common_average) + "\n")
-    if common_average < influence_average:
-        better = "common"
-        algorithm_analysis.write("Common friends algorithm is better\n")
-    elif influence_average < common_average:
-        better = "influence"
-        algorithm_analysis.write("Influence algorithm is better\n")
-    else:
-        better = "none"
-        algorithm_analysis.write("None is better\n")
+    common_friends_average = average_results["recommend_by_number_of_common_friends"]
+    influence_average = average_results["recommend_by_influence"]
 
-    algorithm_analysis.write("\n")
+    if common_friends_average < influence_average:
+        better_algorithm = ALGORITHMS[0]
 
-    return better
+    if influence_average < common_friends_average:
+        better_algorithm = ALGORITHMS[1]
+
+    return {
+        "better_algorithm": better_algorithm,
+        "common_friends_average": common_friends_average,
+        "influence_average": influence_average,
+    }
 
 
-algorithm_analysis = open("results/rj_algorithm_analysis.txt", "w")
+def algorithm_analysis(graph, edges, results_filename):
+    """Generate a report on the results of both algorithms."""
+    common_friends_algorithm = 0
+    influence_algorithm = 0
+    neither_algorithm = 0
 
-common = 0
-influence = 0
-none = 0
+    with open(results_filename, "w") as file:
+        for _ in range(1, 101):
+            result = compare_algorithms(graph, edges)
+            if result is None:
+                neither_algorithm += 1
+                continue
 
-for i in range(1, 101):
-    better = compare_algorithms(rj, relationships)
-    if better == "common":
-        common += 1
-    elif better == "influence":
-        influence += 1
-    else:
-        none += 1
+            file.write(
+                f"Average rank common friends algorithm: {result['common_friends_average']}\n"
+            )
+            file.write(
+                f"Average rank influence algorithm: {result['influence_average']}\n"
+            )
 
-algorithm_analysis.write("Common algorithm: " + str(common) + "\n")
-algorithm_analysis.write("Influence algorithm: " + str(influence) + "\n")
-algorithm_analysis.write("Neutral: " + str(none) + "\n")
+            if result["better_algorithm"] == ALGORITHMS[0]:
+                common_friends_algorithm += 1
+                file.write(f"Number of common friends algorithm is better\n")
+            if result["better_algorithm"] == ALGORITHMS[1]:
+                influence_algorithm += 1
+                file.write(f"Influence algorithm is better\n")
+            if result["better_algorithm"] is None:
+                neither_algorithm += 1
+                file.write(f"None is better\n")
+            file.write("\n")
+
+        file.write(f"Number of common friends algorithm: {common_friends_algorithm}\n")
+        file.write(f"Influence algorithm: {influence_algorithm}\n")
+        file.write(f"Neutral: {neither_algorithm}\n")
 
 
-algorithm_analysis.close()
+if __name__ == "__main__":
+    rj_graph = nx.Graph()
+    rj_graph.add_nodes_from(CHARACTERS)
+    rj_graph.add_edges_from(RELATIONSHIPS)
+
+    algorithm_difference(rj_graph, CHARACTERS, "results/rj_algorithm_diff.txt")
+    algorithm_analysis(rj_graph, RELATIONSHIPS, "results/rj_algorithm_analysis.txt")
